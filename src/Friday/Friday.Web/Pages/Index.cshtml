@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Week Ending</th>
+        <th scope="col">Hours Reported</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var availableWeek in Model.ReportedWeeks)
+        {
+            <tr>
+                <td>@availableWeek.Ending</td>
+                <td>@availableWeek.TotalHours</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post">
+    <label class="form-label" for="SelectedWeek">Missing Weeks</label>
+    @Html.DropDownListFor(model => model.SelectedWeek, Model.MissingWeeks)
+    <span asp-validation-for="SelectedWeek" class="text-danger"></span>
+</form>
