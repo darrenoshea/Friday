@@ -12,6 +12,9 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Index");
 });
 
+var clientId = builder.Configuration["Monday:ClientId"]!;
+var clientSecret = builder.Configuration["Monday:ClientSecret"]!;
+
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 builder.Services.AddAuthentication(options =>
     {
@@ -23,8 +26,8 @@ builder.Services.AddAuthentication(options =>
     {
         options.AuthorizationEndpoint = "https://auth.monday.com/oauth2/authorize";
         options.CallbackPath = "/signin-oauth";
-        options.ClientId = "REPLACE";
-        options.ClientSecret = "REPLACE";
+        options.ClientId = clientId;
+        options.ClientSecret = clientSecret;
         options.TokenEndpoint = "https://auth.monday.com/oauth2/token";
         options.Scope.Add("boards:read");
 
